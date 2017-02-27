@@ -4,7 +4,7 @@ const crypto = require('crypto');
 
 class FBeamer {
 	constructor(config) {
-	    console.log(config);
+	    // console.log(config);
 		try {
 			if(!config || config.PAGE_ACCESS_TOKEN === undefined || config.VERIFY_TOKEN === undefined || config.APP_SECRET === undefined
             || config.SIMSIMI === undefined) {
