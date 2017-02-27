@@ -3,10 +3,13 @@
   "version": "1.0.0",
   "description": "Chatbot for hopkins",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "node server.js"
   },
   "author": "Sachin Bhatnagar <mailme@sachinbhatnagar.com> (http://sachinbhatnagar.com)",
   "license": "ISC",
+  "engines": {
+    "node" : "6.9.1"
+  },
   "dependencies": {
     "firebase": "^3.6.10",
     "moment": "^2.17.1",
