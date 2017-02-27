@@ -16,7 +16,7 @@ module.exports = (session, f) => {
 
     const actions = {
         send(request, response) {
-            console.log(request);
+            // console.log(request);
             const {sessionId, context, entities} = request;
             const messageTxt = request.text;
             let {fbid} = session.get(sessionId);
