@@ -15,7 +15,7 @@ firebase.initializeApp(config.FIREBASE);
 
 server.use(Restify.jsonp());
 server.use(Restify.bodyParser());
-// server.use((req, res, next) => f.verifySignature(req, res, next));
+server.use((req, res, next) => f.verifySignature(req, res, next));
 
 const session = require('./session');
 const firebaseHelper = require('./firebase')(session, f);
