@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node server.js"
   },
-  "author": "Sachin Bhatnagar <mailme@sachinbhatnagar.com> (http://sachinbhatnagar.com)",
+  "author": "Sung Woo Park sungwoopark95@gmail.com",
   "license": "ISC",
   "engines": {
     "node" : "6.9.1"
