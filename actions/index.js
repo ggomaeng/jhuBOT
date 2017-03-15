@@ -6,13 +6,15 @@ const endConversation = require('./endConversation');
 const check = require('./checkRides');
 const add = require('./addRide');
 const show = require('./showRides');
-const {fetchEntity} = require('../utils');
+const find = require('./findBooks');
+const sell = require('./sellBooks');
 
 module.exports = (session, f) => {
     let checkRides = check(session, f);
     let addRide = add(session, f);
     let showRides = show(session, f);
-
+    let findBooks = find(session, f);
+    let sellBooks = sell(session, f);
 
     const actions = {
         send(request, response) {
@@ -22,7 +24,7 @@ module.exports = (session, f) => {
             let {fbid} = session.get(sessionId);
             const {text, quickreplies} = response;
             const intent = entities && entities.intent && entities.intent[0];
-            // console.log(entities);
+            console.log("entities:", entities);
 
             if((intent && intent.value == 'curse') || (entities && Object.keys(entities).length === 0) ||
                 (intent && intent.confidence < 0.6)) {
@@ -56,8 +58,10 @@ module.exports = (session, f) => {
         endConversation,
         checkRides,
         addRide,
-        showRides
-    }
+        showRides,
+        findBooks,
+        sellBooks
+    };
 
     return actions;
-}
+};

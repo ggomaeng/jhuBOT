@@ -83,6 +83,11 @@ server.post('/', (req, res, next) => {
 f.showPersistent([
     {
         type: "postback",
+        title: "My Books",
+        payload: "menu:my books"
+    },
+    {
+        type: "postback",
         title: "My Rides",
         payload: "menu:my rides"
     },

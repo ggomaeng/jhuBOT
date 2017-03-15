@@ -7,13 +7,14 @@ class FBeamer {
 	    // console.log(config);
 		try {
 			if(!config || config.PAGE_ACCESS_TOKEN === undefined || config.VERIFY_TOKEN === undefined || config.APP_SECRET === undefined
-            || config.SIMSIMI === undefined) {
+            || config.SIMSIMI === undefined || config.GOOGLE === undefined) {
 				throw new Error("Unable to access tokens!");
 			} else {
 				this.PAGE_ACCESS_TOKEN = config.PAGE_ACCESS_TOKEN;
 				this.VERIFY_TOKEN = config.VERIFY_TOKEN;
 				this.APP_SECRET = config.APP_SECRET;
 				this.SIMSIMI = config.SIMSIMI;
+				this.GOOGLE = config.GOOGLE;
 			}
 		} catch(e) {
 			console.log(e);
@@ -63,6 +64,23 @@ class FBeamer {
 
 	}
 
+	fetchBookFromGoogle(isbn) {
+        return new Promise((resolve, reject) => {
+            request({
+                uri: `https://www.googleapis.com/books/v1/volumes?q=${isbn}&key=${this.GOOGLE}`,
+				method: 'GET'
+            }, (error, response, body) => {
+                if(!error && response.statusCode === 200) {
+                    // console.log(body);
+                    resolve(JSON.parse(body));
+                    // resolve();
+                } else {
+                    reject(null);
+                }
+            });
+        })
+	}
+
 	getUserInfo(fbid) {
         return new Promise((resolve, reject) => {
             // Create an HTTP POST request
@@ -82,6 +100,7 @@ class FBeamer {
         });
 
 	}
+
 
 	subscribe() {
 		request({

@@ -11,7 +11,8 @@ const showRides = (session, f) => {
         return new Promise((resolve, reject) => {
             let fbid = session.getFbId(sessionId);
             let myRides = [];
-            console.log('im here!!!!!');
+            console.log('im here!!!!!', entities);
+
             let dbRef = firebase.database().ref(`/`);
             dbRef.once('value', locations => {
                 locations.forEach((departures) => {
