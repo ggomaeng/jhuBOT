@@ -11,45 +11,54 @@ const sellBooks = (session, f) => {
         return new Promise((resolve, reject) => {
             let fbid = session.getFbId(sessionId);
             let isbn = fetchEntity(entities, 'phone_number');
-            // console.log('selling isbn:', isbn.replace(/-/g, ''));
+
             //9781118302798
 
+            console.log('inside sellbooks');
+
             if(isbn) {
+                console.log('selling isbn:', isbn.replace(/-/g, ''));
                 f.txt(fbid, "Give me one moment while I search Google for the book :)");
                 f.fetchBookFromGoogle(isbn.replace(/-/g, ''))
                     .then((result) => {
                         let {items} = result;
                         if(!items) {
-                            f.txt(fbid, `I couldn't find anything :/`);
+                            delete context.bookExists;
+                            delete context.bookInfo;
+                            context.noBookExists = true;
+                            return resolve(context);
                         } else {
                             let book = items[0];
                             let {title, subtitle, authors, description, imageLinks} = book.volumeInfo;
                             console.log(title, subtitle, authors, description, imageLinks);
                             let author = authors && authors.length > 0 && authors.length > 1 ? authors.reduce((previous, current) => {
                                 return previous === '' ? current : previous + ' and ' + current;
-                            }, '') : author;
-
+                            }, '') : '';
 
                             let element = [{
-                                title: `${title} by ${author}`,
-                                image_url: `${imageLinks.smallThumbnail}`,
-                                subtitle: `${subtitle}`,
+                                title: `${title} ${author ? 'by ' + author : ''}`,
+                                image_url: `${imageLinks.thumbnail}`,
+                                subtitle: `${description}`,
                             }];
 
                             f.generic(fbid, element)
                                 .then(() => {
-                                    f.txt(fbid, `Your book has been added to the list!`);
+                                    f.txt(fbid, `I found this!`)
+                                        .then(() => {
+                                            delete context.noBookExists;
+                                            context.bookExists = true;
+                                            context.bookInfo = {
+                                                isbn,
+                                                title: `${title} by ${author}`,
+                                                image_url: `${imageLinks.thumbnail}`,
+                                                subtitle: `${subtitle}`,                                            };
+                                            return resolve(context);
+                                        });
                                 });
 
                         }
                     })
-            } else {
-                //ask for isbn again
             }
-
-
-
-            return resolve(context);
         })
     }
 };

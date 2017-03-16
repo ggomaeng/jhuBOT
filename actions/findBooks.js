@@ -13,17 +13,22 @@ const findBooks = (session, f) => {
             let buy_sell = fetchEntity(entities, 'buy_sell');
             if(!buy_sell) {
                 context.noBuySell = true;
+            } else {
+                if(buy_sell.toUpperCase() === 'SELL') {
+                    context.sellBooks = true;
+                    delete context.noBuySell;
+                    delete context.buyBooks;
+                }
+
+                if(buy_sell.toUpperCase() === 'BUY') {
+                    context.buyBooks = true;
+                    delete context.sellBooks;
+                    delete context.noBuySell;
+                }
             }
 
-            if(buy_sell.toUpperCase() === 'SELL') {
-                context.sellBooks = true;
-                delete context.noBuySell;
-            }
 
-            if(buy_sell.toUpperCase() === 'BUY') {
-                context.buyBooks = true;
-                delete context.noBuySell;
-            }
+
 
 
 

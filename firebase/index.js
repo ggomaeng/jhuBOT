@@ -92,6 +92,23 @@ module.exports = (session, f) => {
                 f.txt(fbid, "I've already removed that ride!");
             }
         });
+    };
 
+    cancelBook = (key, isbn, fbid) => {
+        console.log('removing with', key, fbid);
+        let ref = firebase.database().ref(`users/${fbid}/books/${key}`);
+        ref.once('value', snapshot => {
+            if(snapshot.val()) {
+                let updates = {};
+                updates[`users/${fbid}/books/${key}`] = null;
+                updates[`books/${isbn}/${key}`] = null;
+                firebase.database().ref().update(updates)
+                    .then(() => {
+                        f.txt(fbid, "I've removed the book from the list! :)");
+                    });
+            } else {
+                f.txt(fbid, "I've already removed that book!");
+            }
+        });
     }
 };

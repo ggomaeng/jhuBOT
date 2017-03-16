@@ -11,7 +11,7 @@ const showRides = (session, f) => {
         return new Promise((resolve, reject) => {
             let fbid = session.getFbId(sessionId);
             let myRides = [];
-            console.log('im here!!!!!', entities);
+            // console.log('im here!!!!!', entities);
 
             let dbRef = firebase.database().ref(`/`);
             dbRef.once('value', locations => {
@@ -41,7 +41,7 @@ const showRides = (session, f) => {
                                 buttons: [{
                                     type: 'postback',
                                     title: 'Cancel Ride',
-                                    payload: `{"departure":"${departure}", "arrival":"${arrival}", "id": "${key}"}`
+                                    payload: `{"departure":"${departure}", "arrival":"${arrival}", "id": "${key}", "type":"REMOVE_RIDE"}`
                                 }]
                             };
 

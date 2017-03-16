@@ -51,12 +51,16 @@ server.post('/', (req, res, next) => {
 
 		if(postback && !postback.payload.includes("menu")){
 			console.log('im here');
-			// console.log('am i even being called');
-			// console.log(JSON.parse(postback.payload));
-			const {departure, arrival, id} = JSON.parse(postback.payload);
-			// console.log('postback received:', id);
-            let sessionId = session.init(sender);
-			cancelRide(departure, arrival, id, sessionId);
+			let pl = JSON.parse(postback.payload);
+			let {type} = pl;
+			if(type === "REMOVE_BOOK") {
+                const {key, isbn} = pl;
+                cancelBook(key, isbn, sender);
+			} else if (type === "REMOVE_RIDE") {
+                const {departure, arrival, id} = pl;
+                let sessionId = session.init(sender);
+                cancelRide(departure, arrival, id, sessionId);
+			}
 		}
 
 		if((message && message.text) || (postback && postback.payload.includes("menu"))) {

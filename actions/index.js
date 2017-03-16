@@ -8,6 +8,9 @@ const add = require('./addRide');
 const show = require('./showRides');
 const find = require('./findBooks');
 const sell = require('./sellBooks');
+const addB = require('./addBook');
+const showB = require('./showBooks');
+const buyB = require('./buyBooks');
 
 module.exports = (session, f) => {
     let checkRides = check(session, f);
@@ -15,6 +18,9 @@ module.exports = (session, f) => {
     let showRides = show(session, f);
     let findBooks = find(session, f);
     let sellBooks = sell(session, f);
+    let addBook = addB(session, f);
+    let showBooks = showB(session, f);
+    let buyBooks = buyB(session, f);
 
     const actions = {
         send(request, response) {
@@ -60,7 +66,10 @@ module.exports = (session, f) => {
         addRide,
         showRides,
         findBooks,
-        sellBooks
+        sellBooks,
+        addBook,
+        showBooks,
+        buyBooks
     };
 
     return actions;
