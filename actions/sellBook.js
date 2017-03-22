@@ -6,7 +6,7 @@
 const firebase = require('firebase');
 const {fetchEntity} = require('../utils');
 
-const sellBooks = (session, f) => {
+const sellBook = (session, f) => {
     return ({sessionId, context, entities}) => {
         return new Promise((resolve, reject) => {
             let fbid = session.getFbId(sessionId);
@@ -61,4 +61,4 @@ const sellBooks = (session, f) => {
     }
 };
 
-module.exports = sellBooks;
+module.exports = sellBook;

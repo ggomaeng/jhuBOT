@@ -7,7 +7,7 @@ const check = require('./checkRides');
 const add = require('./addRide');
 const show = require('./showRides');
 const find = require('./findBooks');
-const sell = require('./sellBooks');
+const sell = require('./sellBook');
 const addB = require('./addBook');
 const showB = require('./showBooks');
 const buyB = require('./buyBooks');
@@ -17,7 +17,7 @@ module.exports = (session, f) => {
     let addRide = add(session, f);
     let showRides = show(session, f);
     let findBooks = find(session, f);
-    let sellBooks = sell(session, f);
+    let sellBook = sell(session, f);
     let addBook = addB(session, f);
     let showBooks = showB(session, f);
     let buyBooks = buyB(session, f);
@@ -66,7 +66,7 @@ module.exports = (session, f) => {
         addRide,
         showRides,
         findBooks,
-        sellBooks,
+        sellBook,
         addBook,
         showBooks,
         buyBooks
