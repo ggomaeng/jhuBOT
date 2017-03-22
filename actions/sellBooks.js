@@ -36,7 +36,7 @@ const sellBooks = (session, f) => {
                             }, '') : '';
 
                             let element = [{
-                                title: `${title} ${author ? 'by ' + author : ''}`,
+                                title: `${title} ${author !== '' ? 'by ' + author : ''}`,
                                 image_url: `${imageLinks.thumbnail}`,
                                 subtitle: `${description}`,
                             }];
