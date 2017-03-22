@@ -31,9 +31,7 @@ const sellBooks = (session, f) => {
                             let book = items[0];
                             let {title, subtitle, authors, description, imageLinks} = book.volumeInfo;
                             console.log(title, subtitle, authors, description, imageLinks);
-                            let author = authors && authors.length > 0 && authors.length > 1 ? authors.reduce((previous, current) => {
-                                return previous === '' ? current : previous + ' and ' + current;
-                            }, '') : '';
+                            let author = authors && authors.length > 0 ? authors[0] : '';
 
                             let element = [{
                                 title: `${title} ${author !== '' ? 'by ' + author : ''}`,
